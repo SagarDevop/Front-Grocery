@@ -3,10 +3,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/autoplay';
-import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules';
-import { motion } from 'framer-motion';
+import { Autoplay, EffectFade } from 'swiper/modules';
 import { Button } from './ui/Button';
-import { ChevronRight, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const heroSlides = [
   {
@@ -15,7 +14,6 @@ const heroSlides = [
     description: 'Discover the finest selection of organic fruits, fresh vegetables, and daily essentials handpicked just for you.',
     image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop',
     cta: 'Shop Now',
-    color: 'brand'
   },
   {
     title: 'Organic & Pesticide Free Greens',
@@ -23,7 +21,6 @@ const heroSlides = [
     description: 'Support local farmers and enjoy the purest taste of nature with our farm-to-table organic collection.',
     image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=2072&auto=format&fit=crop',
     cta: 'Explore Organic',
-    color: 'emerald'
   },
   {
     title: 'Big Savings on Daily Essentials',
@@ -31,7 +28,6 @@ const heroSlides = [
     description: 'Get up to 40% off on your monthly grocery list. Quality products at prices that make you smile.',
     image: 'https://images.unsplash.com/photo-1543168256-418811576931?q=80&w=2070&auto=format&fit=crop',
     cta: 'View Offers',
-    color: 'amber'
   },
 ];
 
@@ -39,40 +35,33 @@ export default function GroceryHeroSwiper() {
   return (
     <section className="w-full h-[70vh] md:h-[85vh] overflow-hidden relative">
       <Swiper
-        modules={[Autoplay, EffectFade, Pagination, Navigation]}
+        modules={[Autoplay, EffectFade]}
         effect="fade"
         loop
         autoplay={{ delay: 6000, disableOnInteraction: false }}
-        pagination={{ clickable: true, dynamicBullets: true }}
         className="h-full w-full"
       >
         {heroSlides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div className="relative w-full h-full">
-              {/* Background Image with Zoom Effect */}
-              <motion.div 
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 10, ease: "linear" }}
-                className="absolute inset-0"
-              >
+              {/* Background Image */}
+              <div className="absolute inset-0">
                 <img
                   src={slide.image}
                   alt={slide.title}
                   className="w-full h-full object-cover"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  width="1974"
+                  height="1316"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-              </motion.div>
+              </div>
 
               {/* Content Overlay */}
               <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col justify-center">
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="max-w-2xl"
-                >
-                  <span className="inline-block px-4 py-1.5 rounded-full bg-brand-500/20 backdrop-blur-md border border-brand-500/30 text-brand-400 text-xs font-bold tracking-[0.2em] mb-6 animate-pulse-subtle">
+                <div className="max-w-2xl">
+                  <span className="inline-block px-4 py-1.5 rounded-full bg-brand-500/20 backdrop-blur-md border border-brand-500/30 text-brand-400 text-xs font-bold tracking-[0.2em] mb-6">
                     {slide.subtitle}
                   </span>
                   <h1 className="text-3xl sm:text-4xl md:text-7xl font-black text-white mb-6 leading-[1.1]">
@@ -91,36 +80,8 @@ export default function GroceryHeroSwiper() {
                       Learn More
                     </Button>
                   </div>
-                </motion.div>
-              </div>
-
-              {/* Floating Badge (Glassmorphism) */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-                className="absolute bottom-20 right-10 hidden lg:block z-20"
-              >
-                <div className="glass-effect p-6 rounded-3xl border border-white/20 max-w-[240px]">
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="w-12 h-12 bg-brand-500 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                      <ChevronRight size={24} />
-                    </div>
-                    <div>
-                      <p className="text-white font-bold">Fast Delivery</p>
-                      <p className="text-slate-400 text-xs">Within 30 mins</p>
-                    </div>
-                  </div>
-                  <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: "70%" }}
-                      transition={{ duration: 2, delay: 1.5 }}
-                      className="h-full bg-brand-500" 
-                    />
-                  </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </SwiperSlide>
         ))}

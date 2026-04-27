@@ -1,9 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import App from "./App.jsx";
 import store from "./Redux/Store";
 import { Provider } from "react-redux";
@@ -27,13 +24,11 @@ const registerServiceWorker = async () => {
         
         console.log('✅ SW registered with scope:', registration.scope);
 
-        // Listen for updates
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'activated') {
               console.log('🔄 New SW activated. Refreshing for latest content.');
-              // Optionally show a toast to the user
             }
           });
         });
@@ -41,7 +36,6 @@ const registerServiceWorker = async () => {
         console.error('❌ SW registration failed:', error);
       }
     } else {
-      // In development, unregister any existing SWs to prevent caching issues
       const registrations = await navigator.serviceWorker.getRegistrations();
       for (const registration of registrations) {
         registration.unregister();

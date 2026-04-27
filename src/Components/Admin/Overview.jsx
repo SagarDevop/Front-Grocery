@@ -11,7 +11,6 @@ import {
 import KPICard from "./KPICard";
 import AIInsights from "./AIInsights";
 import { fetchAdminStats, fetchAdminActivity } from "../../api/auth";
-import { motion } from "framer-motion";
 import { Clock, ArrowRight, UserPlus, Package } from "lucide-react";
 import { cn } from "../../Utils/cn";
 
@@ -167,10 +166,8 @@ export default function Overview() {
 
                     <div className="space-y-6">
                         {activity.map((item, idx) => (
-                            <motion.div 
-                                key={item.id}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
+                            <div 
+                                key={item.id}}}
                                 transition={{ delay: 0.3 + (idx * 0.1) }}
                                 className="flex gap-4 group"
                             >
@@ -189,7 +186,7 @@ export default function Overview() {
                                 <button className="self-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <ArrowRight className="w-4 h-4 text-gray-400 hover:text-emerald-600" />
                                 </button>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>

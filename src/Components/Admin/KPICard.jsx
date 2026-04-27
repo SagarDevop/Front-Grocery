@@ -1,15 +1,12 @@
 import React from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "../../Utils/cn";
-import { motion } from "framer-motion";
 
 export default function KPICard({ label, value, trend, type, index }) {
   const isPositive = trend >= 0;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+    <div}}
       transition={{ delay: index * 0.1 }}
       className="admin-card p-6"
     >
@@ -32,12 +29,10 @@ export default function KPICard({ label, value, trend, type, index }) {
       </div>
 
       <div className="mt-4 h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
-        <motion.div 
-            initial={{ width: 0 }}
-            animate={{ width: `${Math.min(Math.abs(trend) * 5, 100)}%` }}
+        <div}%` }}
             className={cn("h-full", isPositive ? "bg-emerald-500" : "bg-red-500")}
         />
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Redux/authSlice";
 import { Success, Error } from "../Utils/toastUtils.js";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, Mail, Lock, User, KeyRound, ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "./ui/Button";
 
@@ -268,9 +267,7 @@ const AuthForm = () => {
       <div className="absolute top-0 left-0 w-96 h-96 bg-brand-500/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
+      <div}}
         transition={{ duration: 0.4 }}
         className="w-full max-w-md relative z-10"
       >
@@ -299,17 +296,14 @@ const AuthForm = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={mode + awaitingOTP + forgotOTPStage}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
+            <>
+              <div
+                key={mode + awaitingOTP + forgotOTPStage}}}}
                 className="space-y-4"
               >
                 {renderFormFields()}
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </>
 
             <Button
               type="submit"
@@ -386,7 +380,7 @@ const AuthForm = () => {
             </div>
           )}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

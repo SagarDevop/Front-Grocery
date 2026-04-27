@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/apiConfig";
 import ProductCard from "./ProductCard";
 import CategorySkeleton from "./CategorySkeleton";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Filter, LayoutGrid, List, SearchX, ArrowLeft } from "lucide-react";
 import { Button } from "./ui/Button";
 
@@ -42,9 +41,7 @@ const CategoryPage = () => {
         />
         
         <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+            <div}}
               className="space-y-4"
             >
                 <button 
@@ -64,7 +61,7 @@ const CategoryPage = () => {
                 <p className="text-brand-100 max-w-xl text-lg font-medium">
                   Discover our premium selection of {decodedName.toLowerCase()} sourced directly from the finest vendors.
                 </p>
-            </motion.div>
+            </div>
         </div>
       </div>
 
@@ -98,32 +95,25 @@ const CategoryPage = () => {
                </div>
             </div>
 
-            <AnimatePresence mode="wait">
+            <>
               {loading ? (
-                <motion.div
-                  key="loading"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                <div
+                  key="loading"}}}
                 >
                   <CategorySkeleton />
-                </motion.div>
+                </div>
               ) : filteredProducts.length > 0 ? (
-                <motion.div 
-                  key="results"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                <div 
+                  key="results"}}
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
                 >
                   {filteredProducts.map((prod) => (
                     <ProductCard key={prod._id} product={prod} />
                   ))}
-                </motion.div>
+                </div>
               ) : (
-                <motion.div 
-                  key="empty"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                <div 
+                  key="empty"}}
                   className="flex flex-col items-center justify-center py-32 glass-effect rounded-[3rem] text-center"
                 >
                   <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-8">
@@ -134,9 +124,9 @@ const CategoryPage = () => {
                     We couldn't find any items in the "{decodedName}" category at the moment.
                   </p>
                   <Button onClick={() => navigate('/products')}>Browse All Products</Button>
-                </motion.div>
+                </div>
               )}
-            </AnimatePresence>
+            </>
           </div>
         </div>
       </div>

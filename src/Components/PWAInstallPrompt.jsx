@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Download, Smartphone } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
+import { cn } from '../Utils/cn';
 
 export default function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -10,17 +10,14 @@ export default function PWAInstallPrompt() {
   const [showIOSGuide, setShowIOSGuide] = useState(false);
 
   useEffect(() => {
-    // Detect iOS
     const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     setIsIOS(isIOSDevice);
 
-    // Check if already installed (standalone mode)
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
       || window.navigator.standalone === true;
     
-    if (isStandalone) return; // Already installed, don't show
+    if (isStandalone) return;
 
-    // Check if user dismissed recently
     const dismissed = localStorage.getItem('pwa-install-dismissed');
     if (dismissed) {
       const dismissedTime = parseInt(dismissed, 10);
@@ -28,17 +25,14 @@ export default function PWAInstallPrompt() {
       if (Date.now() - dismissedTime < threeDays) return;
     }
 
-    // Listen for the beforeinstallprompt event (Chrome/Edge/Samsung)
     const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      // Show prompt after a delay (better UX)
       setTimeout(() => setShowPrompt(true), 5000);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
 
-    // For iOS, show after a delay if on mobile
     if (isIOSDevice && !isStandalone) {
       setTimeout(() => setShowPrompt(true), 8000);
     }
@@ -64,18 +58,13 @@ export default function PWAInstallPrompt() {
     localStorage.setItem('pwa-install-dismissed', Date.now().toString());
   };
 
+  if (!showPrompt) return null;
+
   return (
-    <AnimatePresence>
-      {showPrompt && !showIOSGuide && (
-        <motion.div
-          initial={{ y: 200, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 200, opacity: 0 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="fixed bottom-20 md:bottom-6 left-4 right-4 z-[100] max-w-sm mx-auto"
-        >
+    <>
+      {!showIOSGuide && (
+        <div className="fixed bottom-20 md:bottom-6 left-4 right-4 z-[100] max-w-sm mx-auto animate-fade-in-up">
           <div className="bg-white dark:bg-surface-dark-gray rounded-[2rem] shadow-2xl shadow-slate-900/20 border border-slate-200 dark:border-slate-700 p-5 relative overflow-hidden">
-            {/* Decorative gradient */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-400 via-brand-500 to-emerald-400" />
             
             <button
@@ -107,24 +96,18 @@ export default function PWAInstallPrompt() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* iOS Install Guide Modal */}
       {showIOSGuide && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+        <div
           className="fixed inset-0 z-[200] flex items-end justify-center bg-black/40 backdrop-blur-sm p-4"
           onClick={handleDismiss}
         >
-          <motion.div
-            initial={{ y: 100 }}
-            animate={{ y: 0 }}
-            exit={{ y: 100 }}
+          <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-surface-dark-gray rounded-[2rem] shadow-2xl p-8 max-w-sm w-full mb-4"
+            className="bg-white dark:bg-surface-dark-gray rounded-[2rem] shadow-2xl p-8 max-w-sm w-full mb-4 animate-fade-in-up"
           >
             <div className="text-center">
               <div className="w-14 h-14 bg-brand-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand-500/30">
@@ -160,9 +143,9 @@ export default function PWAInstallPrompt() {
                 Got It
               </Button>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

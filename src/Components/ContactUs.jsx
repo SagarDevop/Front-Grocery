@@ -12,7 +12,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { Success, Error } from "../Utils/toastUtils.js";
-import { motion } from "framer-motion";
+
 import { Button } from "./ui/Button";
 
 const contactInfo = [
@@ -79,9 +79,7 @@ export default function ContactUs() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         
         <div className="max-w-7xl mx-auto px-6 py-20 md:py-28 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="text-center"
           >
             <span className="text-brand-400 font-bold tracking-[0.2em] text-xs uppercase mb-4 block">
@@ -93,7 +91,7 @@ export default function ContactUs() {
             <p className="text-lg text-slate-400 max-w-xl mx-auto font-medium">
               Have a question, feedback, or just want to say hello? Our team is here to help.
             </p>
-          </motion.div>
+          </div>
         </div>
 
         {/* Wave */}
@@ -120,13 +118,9 @@ export default function ContactUs() {
             </div>
 
             {contactInfo.map((item, index) => (
-              <motion.div
+              <div
                 key={item.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 shadow-premium hover:shadow-premium-hover transition-all duration-300"
+                className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 shadow-premium hover:shadow-premium-hover transition-shadow duration-300"
               >
                 <div className={`w-11 h-11 rounded-xl ${item.color} flex items-center justify-center shrink-0`}>
                   <item.icon size={20} />
@@ -135,7 +129,7 @@ export default function ContactUs() {
                   <h4 className="font-bold text-slate-900 dark:text-white text-sm">{item.title}</h4>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{item.detail}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
 
             {/* Social Links */}
@@ -159,10 +153,7 @@ export default function ContactUs() {
           </div>
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="lg:col-span-3"
           >
             <form
@@ -226,14 +217,11 @@ export default function ContactUs() {
                 )}
               </Button>
             </form>
-          </motion.div>
+          </div>
         </div>
 
         {/* Map Embed */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <div
           className="mt-20"
         >
           <div className="flex items-center gap-2 mb-6">
@@ -253,7 +241,7 @@ export default function ContactUs() {
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Floating WhatsApp Button */}

@@ -5,7 +5,7 @@ import SortBar from "./SortBar";
 import ProductCard from "./ProductCard.jsx";
 import { Allproduct } from "../api/auth.js";
 import { ChevronLeft, ChevronRight, SlidersHorizontal, LayoutGrid, List, SearchX } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { Button } from "./ui/Button";
 import { cn } from "../Utils/cn";
 
@@ -58,9 +58,7 @@ const ProductList = () => {
       {/* Header Context */}
       <div className="bg-white dark:bg-surface-dark-gray border-b border-slate-200 dark:border-slate-800 py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div 
             className="flex flex-col md:flex-row md:items-center justify-between gap-6"
           >
             <div className="space-y-1">
@@ -86,7 +84,7 @@ const ProductList = () => {
                 </button>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -138,9 +136,7 @@ const ProductList = () => {
                 ))}
               </div>
             ) : products.length === 0 ? (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+              <div 
                 className="flex flex-col items-center justify-center py-24 glass-effect rounded-[3rem] text-center"
               >
                 <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-6">
@@ -151,7 +147,7 @@ const ProductList = () => {
                   We couldn't find any products matching your current selection.
                 </p>
                 <Button onClick={() => navigate('/products')}>Clear Filters</Button>
-              </motion.div>
+              </div>
             ) : (
               <>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 xl:gap-6">

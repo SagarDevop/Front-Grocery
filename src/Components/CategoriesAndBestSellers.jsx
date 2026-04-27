@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import api from "../api/apiConfig";
-import { ArrowRight, Box, ImageOff } from "lucide-react";
+import { ArrowRight, Box } from "lucide-react";
 import ProductCard from "./ProductCard";
 import { Button } from "./ui/Button";
 
 const CategoriesAndBestSellers = () => {
   const navigate = useNavigate();
-  // Default fallback categories to show while loading or if API returns limited data
   const defaultCategories = [
     { name: "Vegetables", image: "/Organic veggies.png", color: "from-green-100 to-emerald-50" },
     { name: "Fresh Fruits", image: "/Fresh Fruits.png", color: "from-rose-100 to-pink-50" },
@@ -49,7 +47,7 @@ const CategoriesAndBestSellers = () => {
                 "Dairy Products": "/Dairy Products.png",
                 "Bakery & Breads": "/Bakery & Breads.png",
                 "Grains & Cereals": "/Grains & Cereals.png",
-                "Personal Care": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png", // Added fallback
+                "Personal Care": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
                 "Snacks": "https://cdn-icons-png.flaticon.com/512/2553/2553691.png"
             };
 
@@ -59,7 +57,6 @@ const CategoriesAndBestSellers = () => {
                 color: colors[i % colors.length]
             }));
 
-            // Merge Logic: Use API categories but fill gaps with defaults if API is short
             const merged = [...apiCats];
             defaultCategories.forEach(def => {
                 if (!merged.find(c => c.name === def.name)) {
@@ -107,7 +104,6 @@ const CategoriesAndBestSellers = () => {
         
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {loading ? (
-             // Initial Loading State: Skeletons that match the grid
              [1,2,3,4,5,6].map(n => (
                 <div key={n} className="space-y-4 animate-pulse">
                     <div className="aspect-square bg-slate-100 dark:bg-slate-800 rounded-[2rem]" />
@@ -116,32 +112,28 @@ const CategoriesAndBestSellers = () => {
              ))
           ) : (
              categories.slice(0, 12).map((cat, index) => (
-                <motion.div
+                <div
                   key={cat.name + index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  whileHover={{ y: -10 }}
                   onClick={() => handleCategoryClick(cat.name)}
                   className="group cursor-pointer"
                 >
-                  <div className={`relative aspect-square rounded-[2rem] bg-gradient-to-br ${cat.color} overflow-hidden mb-4 shadow-premium group-hover:shadow-premium-hover transition-all duration-500`}>
-                      <div className="absolute inset-0 bg-white/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className={`relative aspect-square rounded-[2rem] bg-gradient-to-br ${cat.color} overflow-hidden mb-4 shadow-premium hover:shadow-premium-hover transition-shadow duration-300`}>
                       <img
                           src={cat.image}
                           alt={cat.name}
                           loading="lazy"
+                          width="512"
+                          height="512"
                           onError={(e) => {
                             e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(cat.name)}&background=random&color=fff&size=512`;
                           }}
-                          className="w-full h-full object-contain p-6 mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
+                          className="w-full h-full object-contain p-6 mix-blend-multiply"
                       />
                   </div>
                   <h3 className="text-center font-bold text-slate-800 dark:text-slate-200 group-hover:text-brand-600 transition-colors">
                     {cat.name}
                   </h3>
-                </motion.div>
+                </div>
               ))
           )}
         </div>
@@ -159,7 +151,6 @@ const CategoriesAndBestSellers = () => {
                 </h2>
             </div>
             <div className="flex gap-2">
-               {/* Decorative dots */}
                <div className="flex gap-1">
                   <div className="w-2 h-2 rounded-full bg-brand-500" />
                   <div className="w-2 h-2 rounded-full bg-slate-200" />
@@ -196,12 +187,7 @@ const CategoriesAndBestSellers = () => {
       </section>
 
       {/* Promotional Banner */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="relative rounded-[3rem] overflow-hidden bg-brand-600 text-white p-6 sm:p-12 md:p-20 shadow-2xl shadow-brand-500/20"
-      >
+      <div className="relative rounded-[3rem] overflow-hidden bg-brand-600 text-white p-6 sm:p-12 md:p-20 shadow-2xl shadow-brand-500/20">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-white/10 -skew-x-12 translate-x-1/4" />
         <div className="relative z-10 max-w-xl">
           <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
@@ -217,9 +203,12 @@ const CategoriesAndBestSellers = () => {
         <img 
           src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop" 
           alt="Sale" 
+          loading="lazy"
+          width="1974"
+          height="1316"
           className="absolute right-[-10%] top-[-20%] w-2/3 h-[140%] object-cover opacity-20 md:opacity-40 pointer-events-none mix-blend-overlay rotate-12"
         />
-      </motion.div>
+      </div>
     </div>
   );
 };

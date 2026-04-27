@@ -15,7 +15,6 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "../Utils/cn";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../Redux/authSlice";
-import { motion } from "framer-motion";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Overview", path: "/seller-dashboard" },
@@ -42,16 +41,14 @@ export default function SellerSidebar({ isCollapsed, setIsCollapsed }) {
             <ShoppingBasket className="text-white w-6 h-6" />
           </div>
           {!isCollapsed && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            <div}}
               className="flex flex-col truncate"
             >
                 <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white leading-none">
                     Green<span className="text-brand-500">Hub</span>
                 </span>
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Vendor Network</span>
-            </motion.div>
+            </div>
           )}
         </div>
 
@@ -76,8 +73,7 @@ export default function SellerSidebar({ isCollapsed, setIsCollapsed }) {
                 )} />
                 {!isCollapsed && <span className="font-bold text-sm">{item.label}</span>}
                 {isActive && !isCollapsed && (
-                  <motion.div 
-                    layoutId="sidebar-active"
+                  <div
                     className="ml-auto w-1.5 h-6 rounded-full bg-white/40" 
                   />
                 )}

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+
 import { useCart } from "../Components/CartContext";
 
 
@@ -11,14 +11,7 @@ const bestSellers = [
   { id: "p5", name: "Onion 500g",category: "Organic veggies", price: 45, image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BpbmFjaHxlbnwwfHwwfHx8MA%3D%3D" },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
-  }),
-};
+
 
 export default function BestSeller() {
   
@@ -26,22 +19,16 @@ export default function BestSeller() {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
       {bestSellers.map((item, index) => (
-        <motion.div
+        <div
           key={index}
-          className="relative border p-4 rounded-lg text-center shadow-lg overflow-hidden h-64 cursor-pointer group"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          custom={index}
-          variants={fadeUp}
-          whileHover={{ scale: 1.03 }}
-          transition={{ type: "spring", stiffness: 200 }}
+          className="relative border p-4 rounded-lg text-center shadow-lg overflow-hidden h-64 cursor-pointer group hover:shadow-xl transition-shadow duration-300"
         >
           {/* Background Image */}
-          <motion.img
+          <img
             src={item.image}
             alt={item.name}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
           />
 
           {/* Overlay */}
@@ -51,15 +38,13 @@ export default function BestSeller() {
           <div className="relative pt-[20vh] z-10 text-white flex flex-col items-center justify-center h-full">
             <p className="font-semibold text-lg drop-shadow-sm">{item.name}</p>
             <p className="text-green-300 font-bold drop-shadow">₹{item.price}</p>
-            <motion.button
-              
-              whileTap={{ scale: 0.95 }}
-              className="mt-2 px-4 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600 transition-colors duration-200"
+            <button
+              className="mt-2 px-4 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600 active:scale-95 transition-all duration-200"
             >
               Add
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

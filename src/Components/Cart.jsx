@@ -4,7 +4,7 @@ import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Truck, ShieldCheck, Credi
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "../Utils/toastUtils";
 import { removeFromCart, increaseQty, decreaseQty } from "../Redux/cartSlice";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { Button } from "./ui/Button";
 import { cn } from "../Utils/cn";
 
@@ -41,9 +41,7 @@ export default function Cart() {
         </div>
 
         {cart.length === 0 ? (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div 
             className="flex flex-col items-center justify-center py-24 glass-effect rounded-[3rem] text-center"
           >
             <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-8">
@@ -52,7 +50,7 @@ export default function Cart() {
             <h2 className="text-2xl font-black text-slate-800 dark:text-white mb-2">Your cart is empty</h2>
             <p className="text-slate-500 dark:text-slate-400 mb-10 max-w-xs">Looks like you haven't added anything to your cart yet.</p>
             <Button size="lg" onClick={() => navigate('/products')}>Start Shopping</Button>
-          </motion.div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Cart Items List */}
@@ -73,22 +71,17 @@ export default function Cart() {
                   </span>
                 </div>
                 <div className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${deliveryProgress}%` }}
-                    className="h-full bg-brand-500"
+                  <div 
+                    className="h-full bg-brand-500 transition-all duration-500"
+                    style={{ width: `${deliveryProgress}%` }}
                   />
                 </div>
               </div>
 
-              <AnimatePresence mode="popLayout">
+              <>
                 {cart.map((item) => (
-                  <motion.div
+                  <div
                     key={item._id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, x: -20 }}
                     className="p-6 rounded-[2rem] bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 shadow-sm group"
                   >
                     <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -96,7 +89,7 @@ export default function Cart() {
                         <img
                           src={item.images?.[0] || item.image}
                           alt={item.name}
-                          className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                          className="w-full h-full object-cover"
                         />
                       </div>
                       
@@ -136,9 +129,9 @@ export default function Cart() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
-              </AnimatePresence>
+              </>
             </div>
 
             {/* Order Summary Sidebar */}

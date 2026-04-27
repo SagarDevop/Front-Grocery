@@ -23,9 +23,6 @@ export default function Footer() {
       {/* Top decorative gradient bar */}
       <div className="h-1 w-full bg-gradient-to-r from-brand-400 via-brand-500 to-emerald-400" />
 
-      {/* Decorative background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-500/5 rounded-full blur-[120px] pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 pt-16 pb-10 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Column */}

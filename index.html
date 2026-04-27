@@ -33,6 +33,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://grocery-store-754w.onrender.com" />
+    
+    <!-- Google Fonts — loaded non-blocking with display=swap -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" />
+    </noscript>
+
+    <!-- Inline critical CSS for instant first paint -->
+    <style>
+      #root { min-height: 100vh; }
+      body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; }
+      .dark body { background: #121212; color: #f1f5f9; }
+    </style>
   </head>
   <body>
     <!-- No-JS fallback -->

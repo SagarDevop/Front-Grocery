@@ -24,7 +24,6 @@ import {
   Share2,
   Heart
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/Button";
 import { cn } from "../Utils/cn";
 import { Error, Success } from "../Utils/toastUtils";
@@ -107,9 +106,7 @@ export default function ProductDetail() {
           
           {/* Left: Media Gallery (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+            <div}}
               className="relative aspect-square rounded-[2rem] bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl"
             >
               <Swiper
@@ -139,7 +136,7 @@ export default function ProductDetail() {
                     <Share2 size={20} className="text-slate-400 hover:text-brand-500 transition-colors" />
                  </Button>
               </div>
-            </motion.div>
+            </div>
 
             {/* Thumbnails */}
             <div className="grid grid-cols-4 gap-4">
@@ -289,9 +286,7 @@ export default function ProductDetail() {
                           <div key={r} className="flex items-center gap-3">
                              <span className="text-xs font-bold w-4">{r}</span>
                              <div className="h-2 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                                <motion.div 
-                                  initial={{ width: 0 }}
-                                  whileInView={{ width: `${r === 5 ? 85 : r === 4 ? 60 : 15}%` }}
+                                <div}%` }}
                                   className="h-full bg-brand-500" 
                                 />
                              </div>
@@ -305,9 +300,7 @@ export default function ProductDetail() {
               <div className="lg:w-2/3 space-y-8">
                  {reviews.length > 0 ? (
                     reviews.map((review, idx) => (
-                      <motion.div 
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                      <div}}
                         key={idx} 
                         className="p-8 rounded-[2.5rem] bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 hover:shadow-2xl hover:shadow-slate-200/50 transition-all group relative"
                       >
@@ -331,7 +324,7 @@ export default function ProductDetail() {
                          <p className="text-slate-600 dark:text-slate-400 font-medium leading-[1.8] italic text-lg">
                            "{review.comment}"
                          </p>
-                      </motion.div>
+                      </div>
                     ))
                  ) : (
                     <div className="py-32 text-center glass-effect rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">

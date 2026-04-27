@@ -16,7 +16,6 @@ import {
 } from "recharts";
 import { cn } from "../Utils/cn";
 import { Sparkles, TrendingUp, Bell, Calendar, ChevronRight, Box } from "lucide-react";
-import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
 const SellerDashboard = () => {

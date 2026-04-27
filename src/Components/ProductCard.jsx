@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { addToCart } from "../Redux/cartSlice";
 import { toggleWishlist } from "../Redux/wishlistSlice";
 import { Error, Success } from "../Utils/toastUtils";
-import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
 import { cn } from "../Utils/cn";
 
@@ -50,12 +49,8 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -8 }}
-      className="group relative flex flex-col premium-card overflow-hidden bg-white dark:bg-surface-dark-gray h-full"
+    <div
+      className="group relative flex flex-col premium-card overflow-hidden bg-white dark:bg-surface-dark-gray h-full cursor-pointer hover:-translate-y-1 transition-transform duration-300"
       onClick={showProduct}
     >
       {/* Badge Overlay */}
@@ -73,11 +68,11 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Action Buttons Overlay */}
-      <div className="absolute top-3 right-3 z-10 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
+      <div className="absolute top-3 right-3 z-10 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button 
           onClick={handleWishlist}
           className={cn(
-            "p-2.5 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 border",
+            "p-2.5 rounded-full shadow-lg backdrop-blur-md transition-colors duration-200 border",
             isInWishlist 
               ? "bg-red-500 border-red-500 text-white" 
               : "bg-white/90 dark:bg-slate-800/90 border-slate-100 dark:border-slate-700 text-slate-400"
@@ -86,7 +81,7 @@ const ProductCard = ({ product }) => {
           <Heart size={18} className={isInWishlist ? "fill-current" : ""} />
         </button>
         <button 
-          className="p-2.5 rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700 text-slate-400 shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:text-brand-500"
+          className="p-2.5 rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700 text-slate-400 shadow-lg backdrop-blur-md transition-colors duration-200 hover:text-brand-500"
         >
           <Eye size={18} />
         </button>
@@ -101,9 +96,11 @@ const ProductCard = ({ product }) => {
               : product.image || "/placeholder.png"
           }
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+          width="400"
+          height="400"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Content */}
@@ -127,7 +124,7 @@ const ProductCard = ({ product }) => {
             onClick={handleAddToCart}
             variant="primary"
             size="icon"
-            className="rounded-xl w-9 h-9 shadow-md translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
+            className="rounded-xl w-9 h-9 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
             <ShoppingCart size={16} />
           </Button>
@@ -143,7 +140,7 @@ const ProductCard = ({ product }) => {
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

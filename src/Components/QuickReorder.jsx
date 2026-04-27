@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../Redux/cartSlice";
 import api from "../api/apiConfig";
 import { RefreshCcw, Plus, ShoppingBag } from "lucide-react";
-import { motion } from "framer-motion";
+
 import { toast } from "react-hot-toast";
 
 const QuickReorder = () => {
@@ -53,17 +53,16 @@ const QuickReorder = () => {
 
       <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
         {items.map((item, idx) => (
-          <motion.div
+          <div
             key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="flex-shrink-0 w-40 bg-white p-4 rounded-3xl border border-slate-200/50 shadow-sm hover:shadow-md transition-all group"
+            className="flex-shrink-0 w-40 bg-white p-4 rounded-3xl border border-slate-200/50 shadow-sm hover:shadow-md transition-shadow duration-300 group"
           >
             <div className="w-full aspect-square bg-slate-50 rounded-2xl overflow-hidden mb-3">
                <img 
                   src={item.image || `https://source.unsplash.com/featured/?grocery,${item.name}`} 
                   alt={item.name} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform" 
+                  className="w-full h-full object-cover" 
+                 loading="lazy" 
                />
             </div>
             <h4 className="text-[10px] font-black text-slate-800 uppercase truncate mb-1">{item.name}</h4>
@@ -74,7 +73,7 @@ const QuickReorder = () => {
             >
                 <Plus size={12} /> Add
             </button>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

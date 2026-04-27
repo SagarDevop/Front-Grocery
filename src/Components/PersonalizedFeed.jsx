@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/apiConfig";
-import { motion } from "framer-motion";
-import { Eye, TrendingUp, Sparkles, ShoppingBag } from "lucide-react";
+import { Eye, Sparkles, ShoppingBag } from "lucide-react";
 
 const PersonalizedFeed = () => {
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ const PersonalizedFeed = () => {
   }, []);
 
   if (loading || (data.recentlyViewed.length === 0 && data.suggested.length === 0)) {
-    return null; // Don't show if no data
+    return null;
   }
 
   const ProductStrip = ({ title, products, icon: Icon, colorClass }) => (
@@ -37,20 +36,20 @@ const PersonalizedFeed = () => {
       </div>
 
       <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x">
-        {products.map((product, idx) => (
-          <motion.div
+        {products.map((product) => (
+          <div
             key={product._id}
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: idx * 0.1 }}
             onClick={() => navigate(`/product/${product._id}`)}
-            className="flex-shrink-0 w-64 bg-white rounded-[32px] border border-slate-100 p-4 cursor-pointer hover:shadow-xl transition-all group snap-start"
+            className="flex-shrink-0 w-64 bg-white rounded-[32px] border border-slate-100 p-4 cursor-pointer hover:shadow-xl transition-shadow duration-300 group snap-start"
           >
             <div className="relative h-48 bg-slate-50 rounded-[24px] overflow-hidden mb-4">
               <img
-                src={product.images?.[0] || product.image || `https://source.unsplash.com/featured/?grocery,${product.name}`}
+                src={product.images?.[0] || product.image || `/GreenCart_logo.png`}
                 alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+                width="256"
+                height="192"
+                className="w-full h-full object-cover"
               />
             </div>
             <h4 className="font-bold text-slate-900 truncate uppercase text-sm mb-1">{product.name}</h4>
@@ -61,7 +60,7 @@ const PersonalizedFeed = () => {
                 <ShoppingBag size={14} />
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

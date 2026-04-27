@@ -1,49 +1,50 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 
 const faqs = [
-  {
-    question: "How much does it cost to sell on GrocoMart?",
-    answer: "It’s completely free to list your products. We charge a small service fee only when you make a sale.",
-  },
-  {
-    question: "How will I receive payments?",
-    answer: "Payments are made weekly directly to your bank account linked during registration.",
-  },
-  {
-    question: "Who handles delivery?",
-    answer: "You can either deliver yourself or opt for our delivery support if available in your area.",
-  },
-  {
-    question: "Can I update my product prices later?",
-    answer: "Yes, you can log in to your seller dashboard and change prices, stock, or items anytime.",
-  },
+  { question: "How much does it cost to sell on GreenCart?", answer: "It's completely free to list your products. We charge a minimal transaction fee only when you successfully make a sale." },
+  { question: "How will I receive payments?", answer: "Payments are processed every week and settled directly into your verified bank account." },
+  { question: "Who handles the delivery?", answer: "You can either use your own delivery staff or leverage GreenCart's premium delivery network for a hassle-free experience." },
+  { question: "Can I manage stock from my phone?", answer: "Absolutely! Our mobile-friendly seller dashboard allows you to update prices and stock levels on the go." },
 ];
 
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b py-4 cursor-pointer" onClick={() => setOpen(!open)}>
-      <div className="flex justify-between items-center">
-        <h4 className="font-medium text-gray-800">{q}</h4>
-        {open ? <ChevronUp /> : <ChevronDown />}
+    <div className="mb-4 rounded-2xl bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <button className="w-full flex justify-between items-center p-6 text-left" onClick={() => setOpen(!open)}>
+        <h4 className="font-bold text-slate-900 dark:text-white pr-8">{q}</h4>
+        <div className={`w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center transition-transform duration-200 ${open ? 'rotate-180' : ''}`}>
+          <ChevronDown size={18} className="text-slate-500" />
+        </div>
+      </button>
+      <div
+        className="grid transition-[grid-template-rows] duration-300 ease-in-out"
+        style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+      >
+        <div className="overflow-hidden">
+          <div className="px-6 pb-6 text-slate-500 dark:text-slate-400 font-medium leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4">
+            {a}
+          </div>
+        </div>
       </div>
-      {open && <p className="text-sm text-gray-600 mt-2">{a}</p>}
     </div>
   );
 }
 
 export default function SellerFAQ() {
   return (
-    <section className="bg-gray-50 py-16 px-4 md:px-12">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-          Seller FAQs
-        </h2>
-        <p className="text-gray-600 mb-8">
-          Got questions? We’ve answered the most common ones below.
-        </p>
-        <div className="text-left bg-white rounded-xl shadow p-6 space-y-4">
+    <section className="bg-slate-50 dark:bg-surface-dark-gray py-24 px-4 overflow-hidden">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest mb-6">
+            <HelpCircle size={14} /> Questions?
+          </div>
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">Seller FAQs</h2>
+          <p className="text-lg text-slate-500 dark:text-slate-400 font-medium">Everything you need to know about starting your journey with GreenCart.</p>
+        </div>
+
+        <div className="space-y-4">
           {faqs.map((item, idx) => (
             <FAQItem key={idx} q={item.question} a={item.answer} />
           ))}
