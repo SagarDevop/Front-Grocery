@@ -1,0 +1,107 @@
+{
+  "name": "GreenCart - Fresh Grocery Delivery",
+  "short_name": "GreenCart",
+  "description": "Premium organic groceries delivered to your doorstep in 30 minutes. Shop fresh fruits, vegetables, dairy & more.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#22c55e",
+  "categories": ["shopping", "food"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/GreenCart_logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "GreenCart Homepage"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "GreenCart Mobile"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop Now",
+      "short_name": "Shop",
+      "url": "/products",
+      "icons": [{ "src": "/GreenCart_logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My Cart",
+      "short_name": "Cart",
+      "url": "/cart",
+      "icons": [{ "src": "/GreenCart_logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My Profile",
+      "short_name": "Profile",
+      "url": "/profile",
+      "icons": [{ "src": "/GreenCart_logo.png", "sizes": "192x192" }]
+    }
+  ]
+}
