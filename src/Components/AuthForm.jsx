@@ -108,11 +108,16 @@ const AuthForm = () => {
       else navigate("/");
 
     } catch (err) {
-      console.error("Google Auth Error:", err);
+      console.error("Google Auth Error:", err.code, err.message);
+      
       if (err.code === "auth/popup-closed-by-user") {
         Error("Sign-in cancelled");
+      } else if (err.code === "auth/unauthorized-domain") {
+        Error("This domain is not authorized. Please whitelist it in Firebase Console.");
+      } else if (err.message?.includes("Cross-Origin-Opener-Policy")) {
+        Error("Security policy (COOP) blocked the popup. Try again or check browser settings.");
       } else {
-        const errorMsg = err.response?.data?.error || "Google Sign-In failed.";
+        const errorMsg = err.response?.data?.error || err.message || "Google Sign-In failed.";
         Error(errorMsg);
       }
     } finally {

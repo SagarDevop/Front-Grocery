@@ -14,7 +14,7 @@ const PersonalizedFeed = () => {
         const res = await api.get("/api/growth/recommendations");
         setData(res.data);
       } catch (err) {
-        console.error("Personalization error:", err);
+        console.error("Personalization error:", err.message || err);
       } finally {
         setLoading(false);
       }

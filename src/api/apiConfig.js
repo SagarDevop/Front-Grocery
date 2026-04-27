@@ -52,6 +52,11 @@ api.interceptors.response.use(
       // Broadcast a global signal so the App can clear Redux memory state
       window.dispatchEvent(new Event('session-expired'));
     }
+    
+    // Handle 503 Service Unavailable (common on Render free tier when cold starting)
+    if (error.response && error.response.status === 503) {
+      console.warn("🚀 Backend is waking up... Please wait a few seconds and try again.");
+    }
     return Promise.reject(error);
   }
 );
