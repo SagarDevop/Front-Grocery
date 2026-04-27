@@ -106,9 +106,7 @@ export default function ProductDetail() {
           
           {/* Left: Media Gallery (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
-            <div}}
-              className="relative aspect-square rounded-[2rem] bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl"
-            >
+            <div className="relative aspect-square rounded-[2rem] bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
               <Swiper
                 modules={[Navigation, Pagination, EffectFade]}
                 effect="fade"
@@ -286,7 +284,8 @@ export default function ProductDetail() {
                           <div key={r} className="flex items-center gap-3">
                              <span className="text-xs font-bold w-4">{r}</span>
                              <div className="h-2 flex-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                                <div}%` }}
+                                <div 
+                                  style={{ width: `${r === 5 ? '85' : r === 4 ? '12' : '1'}%` }}
                                   className="h-full bg-brand-500" 
                                 />
                              </div>
@@ -300,7 +299,7 @@ export default function ProductDetail() {
               <div className="lg:w-2/3 space-y-8">
                  {reviews.length > 0 ? (
                     reviews.map((review, idx) => (
-                      <div}}
+                      <div
                         key={idx} 
                         className="p-8 rounded-[2.5rem] bg-white dark:bg-surface-dark-gray border border-slate-200 dark:border-slate-800 hover:shadow-2xl hover:shadow-slate-200/50 transition-all group relative"
                       >

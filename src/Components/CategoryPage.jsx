@@ -41,9 +41,7 @@ const CategoryPage = () => {
         />
         
         <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
-            <div}}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
                 <button 
                   onClick={() => navigate(-1)}
                   className="flex items-center gap-2 text-brand-100/80 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest"
@@ -97,14 +95,12 @@ const CategoryPage = () => {
 
             <>
               {loading ? (
-                <div
-                  key="loading"}}}
-                >
+                <div key="loading">
                   <CategorySkeleton />
                 </div>
               ) : filteredProducts.length > 0 ? (
                 <div 
-                  key="results"}}
+                  key="results"
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
                 >
                   {filteredProducts.map((prod) => (
@@ -113,7 +109,7 @@ const CategoryPage = () => {
                 </div>
               ) : (
                 <div 
-                  key="empty"}}
+                  key="empty"
                   className="flex flex-col items-center justify-center py-32 glass-effect rounded-[3rem] text-center"
                 >
                   <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-8">

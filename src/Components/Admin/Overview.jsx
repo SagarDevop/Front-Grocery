@@ -167,8 +167,7 @@ export default function Overview() {
                     <div className="space-y-6">
                         {activity.map((item, idx) => (
                             <div 
-                                key={item.id}}}
-                                transition={{ delay: 0.3 + (idx * 0.1) }}
+                                key={item.id}
                                 className="flex gap-4 group"
                             >
                                 <div className={cn(

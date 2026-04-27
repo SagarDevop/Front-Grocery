@@ -6,10 +6,7 @@ export default function KPICard({ label, value, trend, type, index }) {
   const isPositive = trend >= 0;
 
   return (
-    <div}}
-      transition={{ delay: index * 0.1 }}
-      className="admin-card p-6"
-    >
+    <div className="admin-card p-6">
       <div className="flex justify-between items-start mb-4">
         <span className="text-sm font-medium text-gray-500">{label}</span>
         <div className={cn(
@@ -29,7 +26,8 @@ export default function KPICard({ label, value, trend, type, index }) {
       </div>
 
       <div className="mt-4 h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
-        <div}%` }}
+        <div 
+            style={{ width: '70%' }}
             className={cn("h-full", isPositive ? "bg-emerald-500" : "bg-red-500")}
         />
       </div>

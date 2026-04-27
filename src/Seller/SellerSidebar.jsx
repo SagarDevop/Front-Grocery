@@ -41,9 +41,7 @@ export default function SellerSidebar({ isCollapsed, setIsCollapsed }) {
             <ShoppingBasket className="text-white w-6 h-6" />
           </div>
           {!isCollapsed && (
-            <div}}
-              className="flex flex-col truncate"
-            >
+            <div className="flex flex-col truncate">
                 <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white leading-none">
                     Green<span className="text-brand-500">Hub</span>
                 </span>
