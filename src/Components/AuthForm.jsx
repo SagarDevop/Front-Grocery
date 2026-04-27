@@ -267,10 +267,7 @@ const AuthForm = () => {
       <div className="absolute top-0 left-0 w-96 h-96 bg-brand-500/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
 
-      <div}}
-        transition={{ duration: 0.4 }}
-        className="w-full max-w-md relative z-10"
-      >
+      <div className="w-full max-w-md relative z-10">
         <div className="bg-white dark:bg-surface-dark-gray rounded-[2.5rem] shadow-2xl shadow-slate-200/50 dark:shadow-none border border-slate-200 dark:border-slate-800 p-8 sm:p-10">
           {/* Logo */}
           <div className="flex justify-center mb-8">
@@ -298,7 +295,7 @@ const AuthForm = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <>
               <div
-                key={mode + awaitingOTP + forgotOTPStage}}}}
+                key={mode + awaitingOTP + forgotOTPStage}
                 className="space-y-4"
               >
                 {renderFormFields()}
