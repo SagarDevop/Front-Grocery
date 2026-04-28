@@ -151,24 +151,24 @@ export default function SellerProduct() {
   );
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Product Inventory</h2>
-            <p className="text-gray-500 mt-1">Manage and track your store's listings.</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Product Inventory</h2>
+            <p className="text-gray-500 text-sm mt-1">Manage and track your store's listings.</p>
         </div>
         <button 
           onClick={() => navigate("/seller-dashboard/add-product")}
-          className="flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-sm transition-all shadow-lg shadow-emerald-200 active:scale-95"
+          className="flex items-center justify-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-sm transition-all shadow-lg shadow-emerald-200 active:scale-95"
         >
           <Plus className="w-4 h-4" />
           Add New Listing
         </button>
       </div>
 
-      <div className="admin-card bg-white p-6">
-        <div className="flex items-center justify-between mb-8">
-            <div className="relative w-96">
+      <div className="admin-card bg-white p-4 md:p-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div className="relative w-full md:w-96">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                     type="text"
@@ -179,28 +179,31 @@ export default function SellerProduct() {
                 />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between md:justify-end gap-2">
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mr-2">
                     Page {table.getState().pagination.pageIndex + 1} / {table.getPageCount() || 1}
                 </span>
-                <button
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                    className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
-                >
-                    <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                    className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
-                >
-                    <ChevronRight className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-1">
+                  <button
+                      onClick={() => table.previousPage()}
+                      disabled={!table.getCanPreviousPage()}
+                      className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
+                  >
+                      <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                      onClick={() => table.nextPage()}
+                      disabled={!table.getCanNextPage()}
+                      className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
+                  >
+                      <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
             </div>
         </div>
 
-        <div className="overflow-hidden bg-white rounded-2xl border border-gray-100">
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-hidden bg-white rounded-2xl border border-gray-100">
             <table className="w-full text-left border-collapse">
             <thead>
                 {table.getHeaderGroups().map(headerGroup => (
@@ -225,17 +228,69 @@ export default function SellerProduct() {
                 ))}
             </tbody>
             </table>
-            
-            {data.length === 0 && (
-                <div className="p-20 text-center">
-                    <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-100">
-                        <Package className="w-8 h-8 text-emerald-300" />
-                    </div>
-                    <p className="text-gray-900 font-bold mb-1">No products listed</p>
-                    <p className="text-gray-500 text-xs">Start selling by adding your first product to the marketplace.</p>
-                </div>
-            )}
         </div>
+
+        {/* Mobile Card View */}
+        <div className="md:hidden space-y-4">
+            {table.getRowModel().rows.map(row => (
+                <div key={row.id} className="bg-white rounded-2xl border border-gray-100 p-4 space-y-4">
+                    <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 rounded-xl bg-gray-50 border border-gray-100 overflow-hidden flex items-center justify-center shrink-0">
+                            {row.original.images?.[0] ? (
+                                <img src={row.original.images[0]} alt={row.original.name} className="w-full h-full object-cover" />
+                            ) : (
+                                <Package className="w-8 h-8 text-gray-200" />
+                            )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <div className="text-gray-900 font-bold text-base truncate tracking-tight">{row.original.name}</div>
+                            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{row.original.category}</div>
+                            <div className="text-emerald-600 font-bold text-sm mt-1">₹{row.original.price}</div>
+                        </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 py-3 border-y border-gray-50">
+                        <div>
+                            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Package</div>
+                            <div className="text-gray-900 font-medium text-sm">{row.original.amount} {row.original.unit}</div>
+                        </div>
+                        <div>
+                            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Stock</div>
+                            <div className={cn("text-sm font-bold", row.original.stock < 10 ? "text-amber-600" : "text-emerald-600")}>
+                                {row.original.stock} Units
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-1">
+                        <button 
+                            onClick={() => navigate(`/seller-dashboard/add-product`, { state: { editProduct: row.original } })}
+                            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-50 text-emerald-600 font-bold text-sm transition-all"
+                        >
+                            <Edit3 className="w-4 h-4" />
+                            Edit
+                        </button>
+                        <button 
+                            onClick={() => handleDelete(row.original._id)}
+                            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-50 text-red-600 font-bold text-sm transition-all"
+                        >
+                            <Trash2 className="w-4 h-4" />
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            ))}
+        </div>
+        
+        {data.length === 0 && (
+            <div className="p-10 md:p-20 text-center">
+                <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-100">
+                    <Package className="w-8 h-8 text-emerald-300" />
+                </div>
+                <p className="text-gray-900 font-bold mb-1">No products listed</p>
+                <p className="text-gray-500 text-xs">Start selling by adding your first product to the marketplace.</p>
+            </div>
+        )}
       </div>
     </div>
   );

@@ -1,18 +1,30 @@
 import React from "react";
-import { Search, Bell, Mail, Plus } from "lucide-react";
+import { Search, Bell, Mail, Plus, Home, ArrowLeft } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminTopbar() {
     const user = useSelector(state => state.auth.user);
+    const navigate = useNavigate();
 
     return (
-        <header className="h-20 bg-white/80 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-40 px-8 flex items-center justify-between">
+        <header className="h-20 bg-white/80 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-40 px-4 md:px-8 flex items-center justify-between gap-4">
+            {/* Back Button */}
+            <button 
+                onClick={() => navigate("/")}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all border border-gray-100 group shrink-0"
+                title="Back to Home"
+            >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                <span className="hidden sm:block text-xs font-bold uppercase tracking-widest">Home</span>
+            </button>
+
             {/* Search */}
-            <div className="relative w-96 group">
+            <div className="relative flex-1 max-w-md group">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-emerald-600 transition-colors" />
                 <input 
                     type="text" 
-                    placeholder="Search anything... (⌘K)"
+                    placeholder="Search anything..."
                     className="w-full bg-gray-50 border border-gray-100 rounded-xl py-2.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all text-sm text-gray-900"
                 />
             </div>

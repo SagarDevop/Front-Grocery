@@ -7,6 +7,7 @@ import Overview from "./Admin/Overview";
 import PendingSellers from "../Seller/PendingSellers";
 import UserManagement from "./Admin/UserManagement";
 import AdminOrderList from "./Admin/AdminOrderList";
+import AdminBottomNav from "./Admin/AdminBottomNav";
 import { cn } from "../Utils/cn";
 
 export default function AdminDashboard() {
@@ -39,8 +40,8 @@ export default function AdminDashboard() {
 
       {/* Main Content Area */}
       <main className={cn(
-        "flex-1 transition-all duration-500 min-h-screen overflow-x-hidden",
-        isCollapsed ? "ml-20" : "ml-64"
+        "flex-1 transition-all duration-500 min-h-screen overflow-x-hidden pb-20 md:pb-0",
+        isCollapsed ? "md:ml-20" : "md:ml-64"
       )}>
         <AdminTopbar />
 
@@ -79,6 +80,7 @@ export default function AdminDashboard() {
             </div>
           )}
         </div>
+        <AdminBottomNav />
       </main>
     </div>
   );

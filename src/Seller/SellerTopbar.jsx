@@ -1,16 +1,28 @@
 import React from "react";
-import { Search, Bell, User, MessageSquare, Sun, Moon } from "lucide-react";
+import { Search, Bell, User, MessageSquare, Sun, Moon, ArrowLeft } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useTheme } from "../context/ThemeContext";
 import { Button } from "../Components/ui/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function SellerTopbar() {
     const user = useSelector((state) => state.auth.user);
     const { darkMode, toggleDarkMode } = useTheme();
+    const navigate = useNavigate();
 
     return (
-        <header className="sticky top-0 z-40 glass-effect border-b border-slate-200 dark:border-slate-800 px-8 py-4">
-            <div className="flex items-center justify-between">
+        <header className="sticky top-0 z-40 glass-effect border-b border-slate-200 dark:border-slate-800 px-4 md:px-8 py-4">
+            <div className="flex items-center justify-between gap-4">
+                {/* Back Button */}
+                <button 
+                    onClick={() => navigate("/")}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-brand-500 transition-all group shrink-0"
+                    title="Back to Home"
+                >
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    <span className="hidden sm:block text-xs font-black uppercase tracking-widest">Home</span>
+                </button>
+
                 {/* Search */}
                 <div className="relative w-full max-w-md hidden md:block">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />

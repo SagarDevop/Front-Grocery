@@ -31,7 +31,7 @@ export default function SellerSidebar({ isCollapsed, setIsCollapsed }) {
 
   return (
     <aside className={cn(
-      "fixed left-0 top-0 h-screen transition-all duration-500 z-50 glass-effect border-r border-slate-200 dark:border-slate-800",
+      "hidden md:flex flex-col fixed left-0 top-0 h-screen transition-all duration-500 z-50 glass-effect border-r border-slate-200 dark:border-slate-800",
       isCollapsed ? "w-20" : "w-64"
     )}>
       <div className="flex flex-col h-full p-4 overflow-hidden">

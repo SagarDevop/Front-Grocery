@@ -164,17 +164,17 @@ export default function SellerOrder() {
   );
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Order Tracking</h2>
-            <p className="text-gray-500 mt-1">Monitor and fulfill customer requests effortlessly.</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Order Tracking</h2>
+            <p className="text-gray-500 text-sm mt-1">Monitor and fulfill customer requests effortlessly.</p>
         </div>
       </div>
 
-      <div className="admin-card bg-white p-6">
-        <div className="flex items-center justify-between mb-8">
-            <div className="relative w-96">
+      <div className="admin-card bg-white p-4 md:p-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div className="relative w-full md:w-96">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                     type="text"
@@ -185,28 +185,31 @@ export default function SellerOrder() {
                 />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between md:justify-end gap-2">
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mr-2">
                     Page {table.getState().pagination.pageIndex + 1} / {table.getPageCount() || 1}
                 </span>
-                <button
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                    className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
-                >
-                    <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                    className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
-                >
-                    <ChevronRight className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-1">
+                  <button
+                      onClick={() => table.previousPage()}
+                      disabled={!table.getCanPreviousPage()}
+                      className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
+                  >
+                      <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                      onClick={() => table.nextPage()}
+                      disabled={!table.getCanNextPage()}
+                      className="p-2 rounded-lg bg-gray-50 text-gray-400 hover:text-emerald-600 disabled:opacity-20 transition-all border border-gray-100"
+                  >
+                      <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
             </div>
         </div>
 
-        <div className="overflow-hidden bg-white rounded-2xl border border-gray-100">
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-hidden bg-white rounded-2xl border border-gray-100">
             <table className="w-full text-left border-collapse">
             <thead>
                 {table.getHeaderGroups().map(headerGroup => (
@@ -231,17 +234,74 @@ export default function SellerOrder() {
                 ))}
             </tbody>
             </table>
-            
-            {data.length === 0 && (
-                <div className="p-20 text-center">
-                    <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-100">
-                        <ShoppingBag className="w-8 h-8 text-emerald-300" />
-                    </div>
-                    <p className="text-gray-900 font-bold mb-1">No orders yet</p>
-                    <p className="text-gray-500 text-xs">When customers buy your products, they will appear here.</p>
-                </div>
-            )}
         </div>
+
+        {/* Mobile Card View */}
+        <div className="md:hidden space-y-4">
+            {table.getRowModel().rows.map(row => {
+                const sellerItems = row.original.items.filter(item => item.seller_id === user._id);
+                const sellerValue = sellerItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                
+                return (
+                    <div key={row.id} className="bg-white rounded-2xl border border-gray-100 p-4 space-y-4">
+                        <div className="flex justify-between items-start">
+                            <div className="flex flex-col">
+                                <span className="text-gray-900 font-bold text-base tracking-tight">#{row.original._id.slice(-8).toUpperCase()}</span>
+                                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">
+                                    {format(new Date(row.original.createdAt), 'MMM dd, hh:mm a')}
+                                </span>
+                            </div>
+                            <StatusBadge status={row.original.status} />
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-4 py-3 border-y border-gray-50">
+                            <div>
+                                <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Customer</div>
+                                <div className="text-gray-900 font-bold text-sm truncate">{row.original.user_id?.name || 'Guest'}</div>
+                            </div>
+                            <div>
+                                <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Total Value</div>
+                                <div className="text-emerald-700 font-bold text-sm">₹{sellerValue.toLocaleString()}</div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-1">
+                            <div className="flex flex-col gap-1">
+                                <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Items</div>
+                                <div className="flex -space-x-2">
+                                    {sellerItems.slice(0, 4).map((item, idx) => (
+                                        <div key={idx} className="w-7 h-7 rounded-full bg-gray-50 border-2 border-white flex items-center justify-center text-[10px] font-bold text-gray-400 overflow-hidden">
+                                            {item.name[0]}
+                                        </div>
+                                    ))}
+                                    {sellerItems.length > 4 && (
+                                        <div className="w-7 h-7 rounded-full bg-emerald-50 border-2 border-white flex items-center justify-center text-[10px] font-bold text-emerald-600">
+                                            +{sellerItems.length - 4}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <button 
+                                className="px-4 py-2 rounded-xl bg-gray-50 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all border border-gray-100 flex items-center gap-2 font-bold text-xs"
+                            >
+                                <ExternalLink className="w-4 h-4" />
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+        
+        {data.length === 0 && (
+            <div className="p-10 md:p-20 text-center">
+                <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-100">
+                    <ShoppingBag className="w-8 h-8 text-emerald-300" />
+                </div>
+                <p className="text-gray-900 font-bold mb-1">No orders yet</p>
+                <p className="text-gray-500 text-xs">When customers buy your products, they will appear here.</p>
+            </div>
+        )}
       </div>
     </div>
   );

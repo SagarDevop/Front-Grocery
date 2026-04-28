@@ -27,8 +27,8 @@ export default function AdminSidebar({ isCollapsed, setIsCollapsed }) {
 
   return (
     <aside className={cn(
-      "admin-glass fixed left-0 top-0 h-screen transition-all duration-500 z-50",
-      isCollapsed ? "w-20" : "w-64"
+      "admin-glass hidden md:flex flex-col left-0 top-0 h-screen transition-all duration-500 z-50",
+      isCollapsed ? "w-20 fixed" : "w-64 fixed"
     )}>
       <div className="flex flex-col h-full p-4 overflow-hidden">
         {/* Brand */}

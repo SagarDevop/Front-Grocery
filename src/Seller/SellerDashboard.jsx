@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import api from "../api/apiConfig";
 import SellerSidebar from "./SellerSidebar";
+import SellerBottomNav from "./SellerBottomNav";
 import SellerTopbar from "./SellerTopbar";
 import KPICard from "../Components/Admin/KPICard";
 import { 
@@ -89,8 +90,8 @@ const SellerDashboard = () => {
 
       {/* Main Content */}
       <main className={cn(
-        "flex-1 transition-all duration-500 min-h-screen",
-        isCollapsed ? "ml-20" : "ml-64"
+        "flex-1 transition-all duration-500 min-h-screen pb-20 md:pb-0",
+        isCollapsed ? "md:ml-20" : "md:ml-64"
       )}>
         <SellerTopbar />
 
@@ -240,6 +241,7 @@ const SellerDashboard = () => {
                 </div>
             )}
         </div>
+        <SellerBottomNav />
       </main>
     </div>
   );
